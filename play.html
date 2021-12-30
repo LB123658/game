@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Survival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+<link rel='icon' href=' ' type='image/png'/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<style>
+html {
+scroll-behavior: smooth;
+}
+body {
+background: white;
+overflow-x: hidden;
+}
+* {
+font-family: 'Roboto Mono', monospace;
+user-select: none;
+-webkit-user-select: none;
+}
+input {
+-webkit-user-select: auto;
+}
+:focus {
+outline: none;
+}
+.rhombus {
+  transform: skew(-10deg);
+  border: none;
+  background: #3586cc;
+  height: 50px;
+  width: 250px;
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  margin-left: -125px;
+}
+#loadingBackground h2 {
+  position: absolute;
+  top: 80px;
+  left: 0px;
+  width: 100%;
+  z-index: 1;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+#loadingBackground p {
+  position: absolute;
+  top: 60%;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  color: grey;
+  font-weight: bold;
+  font-size: 20px;
+}
+#loadingbarBack {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 30px;
+  width: 600px;
+  margin-left: -300px;
+  margin-top: -15px;
+  border: none;
+  background: lightgrey;
+  transform: skew(-10deg);
+}
+#loadingbarBack div {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: grey;
+  animation-name: wide;
+  animation-duration: 10s;
+}
+@keyframes wide {
+  0% {width: 0%;}
+  100% {width: 100%;}
+}
+#game {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 96%;
+  height: 96%;
+  background: #00b140;
+  visibility: hidden;
+  overflow: hidden;
+}
+#sky {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: #87ceff;
+  background-image: linear-gradient(#4a708b, #6ca6cd);
+  height: 50%;
+  width: 100%;
+}
+#ground {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background: green;
+  background-image: linear-gradient(#327c09, #4d6e4c);
+  height: 50%;
+  width: 100%;
+}
+#character {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 200px;
+  height: 200px;
+  background: lightgrey;
+  border: 5px solid black;
+  margin-right: -100px;
+  border-radius: 50%;
+  animation: move 2s infinite;
+  transition: top 0.75s, right 0.75s;
+  z-index: 2;
+}
+@keyframes move {
+  0% {transform: translate(0px,0px);}
+  50% {transform: translate(0px,10px);}
+  100% {transform: translate(0px,0px);}
+}
+#shadow {
+  position: absolute;
+  top: 75%;
+  right: 55%;
+  transform: rotate(20deg);
+  height: 200px;
+  width: 400px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  animation: move 2s infinite;
+  transition: top 0.75s, right 0.75s;
+}
+.reward {
+ height: 60px;
+ width: 60px;
+ border-radius: 50%;
+ border: 3px solid #ffc000;
+ background: #ffc000;
+ transition: border 0.3s;
+ z-index: 1;
+}
+.reward:hover {
+  border: 3px solid white;
+}
+</style>
+</head>
+<body>
+
+<!-- loading screen -->
+<div id="loadingBackground">
+  <div class="rhombus"></div>
+  <h2>Survival</h2>
+  <div id="loadingbarBack">
+    <div id="loadingBar"></div>
+  </div>
+  <p>Loading game <span id="percent"></span></p>
+</div>
+
+<!-- game -->
+<div id="game">
+  <div id="sky"></div>
+  <div id="ground"></div>
+  <div id="character"></div>
+  <div id="shadow"></div>
+</div>
+
+<script>
+// loading screen variables
+var loadScreen = document.getElementById("loadingBackground");
+var loadPercent = document.getElementById("loadingBar");
+var percent = document.getElementById("percent");
+var num = 0;
+
+// game variables
+var game = document.getElementById("game");
+var character = document.getElementById("character");
+var shadow = document.getElementById("shadow");
+var scoreNum = 0;
+var score = document.getElementById("score");
+
+setInterval(percentage, 100);
+function percentage() {
+  num++;
+  if (num < 101) {
+	percent.innerHTML = num + "%";
+  } else if (num > 110) {
+  loadScreen.remove();
+  game.style.visibility = "visible";
+  }
+}
+
+// game part
+document.body.onkeyup = function(e){  
+    if(e.keyCode == 32){
+        jump(); setTimeout(gravity, 800);
+    }
+}
+function jump() {
+character.style.top = "35%";
+shadow.style.right = "70%";
+}
+function gravity() {
+character.style.top = "50%";
+shadow.style.right = "55%";
+}
+setInterval(randomize, 1000);
+function randomize() {
+var chance = Math.random();
+  if (chance > 0.33) {
+	  makeReward();
+  } else if (chance < 0.33) {
+	  makeReward();
+  }
+}
+function makeObstacle() {
+}
+function makeReward() {
+var reward = document.createElement("button");
+reward.className = "reward";
+reward.title = "Click to pick up";
+reward.style.position = "absolute";
+reward.style.top = "15%";
+reward.style.left = ((chance * 10) + 50) + "%";
+reward.onclick = function() {this.remove(); alert("Reward gathered");};
+sky.appendChild(reward);
+}
+</script>
+</body>
+</html>
