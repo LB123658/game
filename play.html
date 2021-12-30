@@ -147,13 +147,13 @@ outline: none;
  height: 60px;
  width: 60px;
  border-radius: 50%;
- border: 3px solid #ffc000;
+ border: 6px solid #ffc000;
  background: #ffc000;
  transition: border 0.3s;
  z-index: 1;
 }
 .reward:hover {
-  border: 3px solid white;
+  border: 6px solid white;
 }
 </style>
 </head>
@@ -216,15 +216,6 @@ function gravity() {
 character.style.top = "50%";
 shadow.style.right = "55%";
 }
-setInterval(randomize, 1000);
-function randomize() {
-var chance = Math.random();
-  if (chance > 0.33) {
-	  makeReward();
-  } else if (chance < 0.33) {
-	  makeReward();
-  }
-}
 function makeObstacle() {
 }
 function makeReward() {
@@ -232,10 +223,19 @@ var reward = document.createElement("button");
 reward.className = "reward";
 reward.title = "Click to pick up";
 reward.style.position = "absolute";
-reward.style.top = "15%";
-reward.style.left = ((chance * 10) + 50) + "%";
+reward.style.top = "20%";
+reward.style.left = (Math.random()*100) + "%";
 reward.onclick = function() {this.remove(); alert("Reward gathered");};
 sky.appendChild(reward);
+}
+setInterval(randomize, 1000);
+function randomize() {
+var chance = Math.random();
+  if (chance > 0.05) {
+	  makeObstacle();
+  } else if (chance < 0.05) {
+	  makeReward();
+  }
 }
 </script>
 </body>
