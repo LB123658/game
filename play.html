@@ -155,6 +155,21 @@ outline: none;
 .reward:hover {
   border: 6px solid white;
 }
+#info {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  overflow: hidden;
+  text-align: center;
+  border: none;
+}
 </style>
 </head>
 <body>
@@ -175,6 +190,7 @@ outline: none;
   <div id="ground"></div>
   <div id="character"></div>
   <div id="shadow"></div>
+  <button id="info">Health: <span id="health">100</span>% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gold: <span id="gold">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Score: <span id="score"></span></button>
 </div>
 
 <script>
@@ -190,6 +206,10 @@ var character = document.getElementById("character");
 var shadow = document.getElementById("shadow");
 var scoreNum = 0;
 var score = document.getElementById("score");
+var health = document.getElementById("health");
+var healthNum = 100;
+var gold = document.getElementById("gold");
+var goldNum = 0;
 
 setInterval(percentage, 100);
 function percentage() {
@@ -225,7 +245,7 @@ reward.title = "Click to pick up";
 reward.style.position = "absolute";
 reward.style.top = "20%";
 reward.style.left = (Math.random()*100) + "%";
-reward.onclick = function() {this.remove(); alert("Reward gathered");};
+reward.onclick = function() {this.remove(); goldNum = goldNum + 1;};
 sky.appendChild(reward);
 }
 setInterval(randomize, 1000);
@@ -236,6 +256,13 @@ var chance = Math.random();
   } else if (chance < 0.05) {
 	  makeReward();
   }
+}
+setInterval(stats, 100);
+function stats() {
+scoreNum++;
+health.innerHTML = healthNum;
+gold.innerHTML = goldNum;
+score.innerHTML = scoreNum;
 }
 </script>
 </body>
