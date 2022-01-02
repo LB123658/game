@@ -237,7 +237,7 @@ outline: none;
   <button class="slant" style="transform:scale(1.5) skew(-10deg);">Game over</button>
   <br><br><br><br>
   <h2>Gold: <span id="gameoverGold"></span><br> Score: <span id="gameoverScore"></span></h2>
-  <button class="slant" onclick="location.reload()" style="cursor:pointer;">Play again</button>
+  <button class="slant" onclick="playAgain()" style="cursor:pointer;">Play again</button>
   <button class="slant" onclick="openHome()" style="cursor:pointer;">Home page</button>
 </div>
 
@@ -350,6 +350,10 @@ gameoverScore.innerHTML = scoreNum;
 function openHome() {
 localStorage.setItem("survival_gold", goldNum);
 location.replace("https://lb123658.github.io/game?score=" + scoreNum);
+}
+function playAgain() {
+localStorage.setItem("survival_gold", goldNum);
+location.reload();
 }
 </script>
 </body>
