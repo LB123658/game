@@ -170,6 +170,45 @@ outline: none;
   text-align: center;
   border: none;
 }
+.obstacle {
+  background: rgba(0, 0, 0, 0.5);
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+  z-index: 1;
+  animation-name: obstacleMove;
+  animation-duration: 3s;
+}
+@keyframes obstacleMove {
+  0% {left: 100%;}
+  100% {left: -10%;}
+}
+#lose {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  width: 96%;
+  height: 96%;
+  background: #3586cc;
+  visibility: hidden;
+  overflow: hidden;
+  text-align: center;
+}
+#lose * {
+  margin: 50px 10px 10px 0px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+.slant {
+  transform: skew(-10deg);
+  border: none;
+  background: white;
+  height: 50px;
+  min-width: 250px;
+  color: black;
+}
 </style>
 </head>
 <body>
@@ -193,6 +232,15 @@ outline: none;
   <button id="info">Health: <span id="health">100</span>% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Gold: <span id="gold">0</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Score: <span id="score"></span></button>
 </div>
 
+<!-- game over section -->
+<div id="lose">
+  <button class="slant" style="transform:scale(1.5) skew(-10deg);">Game over</button>
+  <br><br><br><br>
+  <h2>Gold: <span id="gameoverGold"></span><br> Score: <span id="gameoverScore"></span></h2>
+  <button class="slant" onclick="location.reload()" style="cursor:pointer;">Play again</button>
+  <button class="slant" onclick="openHome()" style="cursor:pointer;">Home page</button>
+</div>
+
 <script>
 // loading screen variables
 var loadScreen = document.getElementById("loadingBackground");
@@ -204,6 +252,12 @@ var num = 0;
 var game = document.getElementById("game");
 var character = document.getElementById("character");
 var shadow = document.getElementById("shadow");
+var sky = document.getElementById("sky");
+var ground = document.getElementById("ground");
+var lose = document.getElementById("lose");
+var gameoverGold = document.getElementById("gameoverGold");
+var gameoverScore = document.getElementById("gameoverScore");
+
 var scoreNum = 0;
 var score = document.getElementById("score");
 var health = document.getElementById("health");
@@ -219,6 +273,8 @@ function percentage() {
   } else if (num > 110) {
   loadScreen.remove();
   game.style.visibility = "visible";
+  healthNum == 100;
+  scoreNum == 0;
   }
 }
 
@@ -226,6 +282,8 @@ function percentage() {
 document.body.onkeyup = function(e){  
     if(e.keyCode == 32){
         jump(); setTimeout(gravity, 800);
+    } else if (e.keyCode == 88) {
+    	gameOver();
     }
 }
 function jump() {
@@ -236,7 +294,22 @@ function gravity() {
 character.style.top = "50%";
 shadow.style.right = "55%";
 }
+function collide() {
+	if (character.style.top == "35%") {
+    goldNum = +goldNum + 1;
+	} else {
+  	healthNum = +healthNum - 10;
+  }
+}
 function makeObstacle() {
+var obstacle = document.createElement("div");
+obstacle.className = "obstacle";
+obstacle.style.position = "absolute";
+obstacle.style.bottom = "40%";
+obstacle.style.left = "75%";
+ground.appendChild(obstacle);
+setTimeout(function() {obstacle.remove();}, 3000);
+setTimeout(collide, 1200);
 }
 function makeReward() {
 var reward = document.createElement("button");
@@ -248,7 +321,7 @@ reward.style.left = (Math.random()*100) + "%";
 reward.onclick = function() {this.remove(); goldNum = goldNum + 1;};
 sky.appendChild(reward);
 }
-setInterval(randomize, 1000);
+setInterval(randomize, 5000);
 function randomize() {
 var chance = Math.random();
   if (chance > 0.05) {
@@ -263,6 +336,20 @@ scoreNum++;
 health.innerHTML = healthNum;
 gold.innerHTML = goldNum;
 score.innerHTML = scoreNum;
+	if (healthNum == 0) {
+ 		gameOver();
+  }
+}
+function gameOver() {
+console.log("Game over");
+game.remove();
+lose.style.visibility = "visible";
+gameoverGold.innerHTML = goldNum;
+gameoverScore.innerHTML = scoreNum;
+}
+function openHome() {
+localStorage.setItem("survival_gold", goldNum);
+location.replace("https://lb123658.github.io/game?score=" + scoreNum);
 }
 </script>
 </body>
