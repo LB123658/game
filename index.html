@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Survival - Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+<link rel='icon' href=' ' type='image/png'/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<style>
+html {
+scroll-behavior: smooth;
+}
+body {
+background: #3586cc;
+overflow-x: hidden;
+text-align: center;
+}
+* {
+font-family: 'Roboto Mono', monospace;
+user-select: none;
+-webkit-user-select: none;
+}
+input {
+-webkit-user-select: auto;
+}
+:focus {
+outline: none;
+}
+
+#character {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  width: 200px;
+  height: 200px;
+  background: lightgrey;
+  border: 5px solid black;
+  margin-right: -100px;
+  border-radius: 50%;
+  animation: move 2s infinite;
+  transition: top 0.75s, right 0.75s;
+  z-index: 2;
+}
+
+body * {
+  margin: 50px 10px 10px 0px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
+}
+.slant {
+  transform: skew(-10deg);
+  border: none;
+  background: white;
+  height: 50px;
+  min-width: 250px;
+  color: black;
+}
+span {
+margin: 0px;
+float: left;
+}
+</style>
+</head>
+<body>
+<button class="slant" style="transform:scale(1.5) skew(-10deg);">Survival</button>
+<br>
+<a href="play">
+<button class="slant" style="cursor:pointer;">Play now</button></a>
+<button class="slant" style="cursor:pointer; opacity:0.6; pointer-events:none;">Store</button>
+<br><br>
+<button class="slant" id="gold" style="background:#ffc000;">Play to win gold</button>
+<button class="slant" id="score" style="background:lightgrey">No score yet</button>
+<br><br>
+<button class="slant" style="transform:scale(1.2) skew(-10deg); padding: 0px 20px 0px 20px; background: orange;"><span class="material-icons">info</span> &nbsp; More coming soon</button>
+<script>
+var gold = document.getElementById("gold");
+
+if (localStorage.getItem("survival_gold")) {
+  gold.innerHTML = "Your gold: " + localStorage.getItem("survival_gold");
+}
+if (location.search.split("?")[1].split("=")[0] == "score") {
+  score.innerHTML = "Last score: " + location.search.split("=")[1];
+}
+</script>
+</body>
+</html>
