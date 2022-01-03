@@ -62,6 +62,19 @@ span {
 margin: 0px;
 float: left;
 }
+#store {
+width: 100%;
+}
+#store button {
+transition: transform 0.3s;
+padding: 10px;
+cursor: pointer;
+min-height: 100px;
+margin: 20px;
+}
+#store button:hover {
+transform: skew(-10deg) scale(1.03);
+}
 </style>
 </head>
 <body>
@@ -69,12 +82,19 @@ float: left;
 <br>
 <a href="play">
 <button class="slant" style="cursor:pointer;">Play now</button></a>
-<button class="slant" style="cursor:pointer; opacity:0.6; pointer-events:none;">Store</button>
+<a href="#shopping">
+<button class="slant" style="cursor:pointer;">Store</button></a>
 <br><br>
 <button class="slant" id="gold" style="background:#ffc000;">Play to win gold</button>
 <button class="slant" id="score" style="background:lightgrey">No score yet</button>
 <br><br>
 <button class="slant" style="transform:scale(1.2) skew(-10deg); padding: 0px 20px 0px 20px; background: orange;"><span class="material-icons">info</span> &nbsp; More coming soon</button>
+<br><br><br>
+
+<button id="shopping" class="slant" style="transform:scale(1.2) skew(-10deg); padding: 0px 20px 0px 20px; width: 60%;">Store</button>
+
+<div id="store"></div>
+
 <script>
 var gold = document.getElementById("gold");
 
@@ -84,6 +104,46 @@ if (localStorage.getItem("survival_gold")) {
 if (location.search.split("?")[1].split("=")[0] == "score") {
   score.innerHTML = "Last score: " + location.search.split("=")[1];
 }
+
+//load store section
+var store = document.getElementById("store");
+var funds = localStorage.getItem("survival_gold");
+
+function load(item,price) {
+var x = document.createElement("button");
+x.className = "slant";
+x.innerHTML = item + "<br> Must have " + price + " Gold";
+  if (funds < +price) {
+    x.style.pointerEvents = "none";
+    x.style.opacity = "0.6";
+  }
+x.onclick = function() {gold = "Your gold: " + +funds - +price; x.innerHTML = item + "<br>-> Click to use <-"; this.onclick = function() {location.replace("https://lb123658.github.io/game/play?character=" + item)}; };
+store.appendChild(x);
+}
+
+load("Red circle","5");
+load("Orange circle","5");
+load("Yellow circle","5");
+load("Green circle","5");
+load("Blue circle","5");
+load("Purple circle","5");
+load("Pink circle","5");
+load("Grey circle","5");
+load("Black circle","5");
+
+load("Camo circle","10");
+load("Gold circle","10");
+load("Grass circle","10");
+load("Wood circle","10");
+load("Metal circle","10");
+
+load("Black hole circle","20");
+load("Fox circle","20");
+load("Bean circle","20");
+load("Carrot circle","20");
+
+load("Banana circle","30");
+
 </script>
 </body>
 </html>
