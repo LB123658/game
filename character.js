@@ -4,23 +4,23 @@ var type = location.search.split("character=")[1];
 if (type == "Red%20circle") {
   character.style.background = "#ce233f";
 } else if (type == "Orange%20circle") {
-  character.style.background = "orange");
+  character.style.background = "orange";
 } else if (type == "Yellow%20circle") {
-  character.style.background = "#ffc000");
+  character.style.background = "#ffc000";
 } else if (type == "Green%20circle") {
-  character.style.background = "#5cf210");
+  character.style.background = "#5cf210";
 } else if (type == "Blue%20circle") {
-  character.style.background = "#242493");
+  character.style.background = "#242493";
 } else if (type == "Purple%20circle") {
-  character.style.background = "purple");
+  character.style.background = "purple";
 } else if (type == "Pink%20circle") {
-  character.style.background = "pink");
+  character.style.background = "pink";
 } else if (type == "Grey%20circle") {
-  character.style.background = "black");
+  character.style.background = "grey";
 } else if (type == "Black%20circle") {
-  character.style.background = "black");
+  character.style.background = "black";
 } else if (type == "Purple%20circle") {
-  character.style.background = "purple");
+  character.style.background = "purple";
 } else if (type == "Camo%20circle") {
   character.style.backgroundImage = "url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/CADPAT_digital_camouflage_pattern_%28Temperate_Woodland_variant%29.jpg/1280px-CADPAT_digital_camouflage_pattern_%28Temperate_Woodland_variant%29.jpg')";
 } else if (type == "Gold%20circle") {
