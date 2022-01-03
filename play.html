@@ -348,12 +348,22 @@ gameoverGold.innerHTML = goldNum;
 gameoverScore.innerHTML = scoreNum;
 }
 function openHome() {
-localStorage.setItem("survival_gold", goldNum);
-location.replace("https://lb123658.github.io/game?score=" + scoreNum);
+  if (localStorage.getItem("survival_gold")) {
+    localStorage.setItem("survival_gold", +goldNum + +localStorage.getItem("survival_gold"));
+    location.replace("https://lb123658.github.io/game?score=" + scoreNum);
+  } else {
+    localStorage.setItem("survival_gold", goldNum);
+    location.replace("https://lb123658.github.io/game?score=" + scoreNum);
+  }
 }
 function playAgain() {
-localStorage.setItem("survival_gold", goldNum);
-location.reload();
+  if (localStorage.getItem("survival_gold")) {
+    localStorage.setItem("survival_gold", +goldNum + +localStorage.getItem("survival_gold"));
+    location.reload();
+  } else {
+    localStorage.setItem("survival_gold", goldNum);
+    location.reload();
+  }
 }
 </script>
 </body>
