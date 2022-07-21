@@ -3,18 +3,18 @@
 	"short_name":"Survival",
 	"start_url":"index.html",
 	"display":"standalone",
-	"background_color":"black",
-	"theme_color":"black",
+	"background_color":"#fff",
+	"theme_color":"#fff",
 	"scope": ".",
 	"description":"A classic obstacle game.",
 	"icons":[
 	{
-	"src":"favicon.png",					
+	"src":"https://lb123658.github.io/game/favicon.png",					
 	"sizes":"192x192",
 	"type":"image/png"
 	},
 	{
-	"src":"favicon.png",
+	"src":"https://lb123658.github.io/game/favicon.png",
 	"sizes":"512x512",
 	"type":"image/png"
 	}
