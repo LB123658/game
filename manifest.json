@@ -1,7 +1,7 @@
 {
 	"name":"Survival",
 	"short_name":"Survival",
-	"start_url":"index.html",
+	"start_url":"index.html?score=0",
 	"display":"standalone",
 	"background_color":"#fff",
 	"theme_color":"#fff",
